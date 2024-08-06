@@ -43,9 +43,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.marsphotos.model.MarsPhoto
 import com.example.marsphotos.ui.theme.MarsPhotosTheme
 import sheridan.sullnich.assignment4.R
+import sheridan.sullnich.assignment4.domain.MarsPhoto
 
 @Composable
 fun HomeScreen(
@@ -161,7 +161,7 @@ fun ErrorScreenPreview() {
 @Composable
 fun PhotosGridScreenPreview() {
     MarsPhotosTheme {
-        val mockData = List(10) { MarsPhoto("$it", "") }
+        val mockData = List(10) { MarsPhoto(0, "", "") }
         PhotosGridScreen(mockData)
     }
 }

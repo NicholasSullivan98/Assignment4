@@ -4,6 +4,8 @@ plugins {
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
 
+    //alias(libs.plugins.ksp)
+
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
 }
@@ -70,14 +72,23 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
+    // needed for the navigation with view models
+    implementation(libs.androidx.navigation.compose)
+
+    // needed for the view model per destination, the hiltViewModel() function
+    implementation(libs.hilt.navigation.compose)
+
     // Retrofit
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.retrofit)
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    // needed by the local database, do not change it to 2.6.0
+    implementation(libs.androidx.room)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    //ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

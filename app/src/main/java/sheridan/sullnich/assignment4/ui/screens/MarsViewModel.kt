@@ -19,17 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.marsphotos.MarsPhotosApplication
-import com.example.marsphotos.data.MarsPhotosRepository
-import com.example.marsphotos.model.MarsPhoto
+import sheridan.sullnich.assignment4.data.repository.MarsPhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import sheridan.sullnich.assignment4.domain.MarsPhoto
 import java.io.IOException
 import javax.inject.Inject
 
@@ -59,13 +54,13 @@ class MarsViewModel @Inject constructor(
 
     /**
      * Gets Mars photos information from the Mars API Retrofit service and updates the
-     * [MarsPhoto] [List] [MutableList].
+     * [MarsPhotoTemp] [List] [MutableList].
      */
     fun getMarsPhotos() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {
-                MarsUiState.Success(marsPhotosRepository.getMarsPhotos())
+                MarsUiState.Success(marsPhotosRepository.getAllMarsPhotosFlow())
             } catch (e: IOException) {
                 MarsUiState.Error
             } catch (e: HttpException) {
