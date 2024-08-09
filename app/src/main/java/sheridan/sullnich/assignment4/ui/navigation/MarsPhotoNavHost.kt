@@ -7,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import sheridan.sullnich.assignment4.ui.details.MarsPhotoDetailsViewModel
+import sheridan.sullnich.assignment4.ui.details.MarsPhotosDetailsScreen
 import sheridan.sullnich.assignment4.ui.list.MarsPhotosScreen
 import sheridan.sullnich.assignment4.ui.list.MarsPhotosViewModel
 
@@ -28,8 +30,8 @@ fun MarsPhotoNavHost(navController: NavHostController) {
                 type = NavType.IntType
             })
         ) {
-            val viewModel: MarsPhotosViewModel = hiltViewModel()
-            //MarsPhotosDetailsScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
+            val viewModel: MarsPhotoDetailsViewModel = hiltViewModel()
+            MarsPhotosDetailsScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
         }
     }
 }

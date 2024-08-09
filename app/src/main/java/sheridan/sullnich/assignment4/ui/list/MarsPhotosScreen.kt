@@ -59,6 +59,7 @@ fun MarsPhotosScreen(
         if (listUiState is MarsPhotosUiState.Success) {
             PhotosGridScreen(
                 photos = listUiState.marsPhoto,
+                onItemClick = onItemClick,
                 contentPadding = innerPadding,
                 modifier = modifier.fillMaxWidth()
             )
@@ -69,6 +70,7 @@ fun MarsPhotosScreen(
 @Composable
 fun PhotosGridScreen(
     photos: List<MarsPhoto>,
+    onItemClick: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -80,6 +82,7 @@ fun PhotosGridScreen(
         items(items = photos, key = { photo -> photo.id }) { photo ->
             MarsPhotoCard(
                 photo,
+                onItemClick = { onItemClick(photo.id)},
                 modifier = modifier
                     .padding(4.dp)
                     .fillMaxWidth()
@@ -90,11 +93,13 @@ fun PhotosGridScreen(
 }
 
 @Composable
-fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
+fun MarsPhotoCard(photo: MarsPhoto, onItemClick: () -> Unit, modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .clickable(onClick = onItemClick),
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context = LocalContext.current).data(photo.imgSrc)
