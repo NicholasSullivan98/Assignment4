@@ -8,6 +8,6 @@ data class MarsPhoto(
     val id: Int,
     @SerialName(value = "img_src")
     val imgSrc: String,
-    val description: String,
+    //val description: String,
     val isFavorite: Boolean = false
 )

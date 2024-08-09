@@ -36,14 +36,15 @@ import sheridan.sullnich.assignment4.domain.MarsPhoto
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
 @OptIn(DelicateCoroutinesApi::class)
 @Singleton
-class MarsPhotosRepository(
+class MarsPhotosRepositoryImpl(
     private val marsphotoApi: MarsPhotoApi,
     private val marsphotoDao: MarsPhotoDao,
     private val externalScope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher
-) : PhotoRepository {
+) : MarsPhotoRepository {
 
     @Inject
     constructor(
@@ -92,33 +93,15 @@ class MarsPhotosRepository(
 }
 
 fun LocalMarsPhotos.toMarsPhoto(): MarsPhoto = MarsPhoto(
-    id = id, imgSrc = imgSrc, description = description, isFavorite = isFavorite
+    id = id, imgSrc = imgSrc, isFavorite = isFavorite
 )
 
 fun RemoteMarsPhoto.toLocalMarsPhoto(): LocalMarsPhotos = LocalMarsPhotos(
-    id = this.id, imgSrc = this.imgSrc, description = this.description, isFavorite = false
+    id = this.id, imgSrc = this.imgSrc, isFavorite = false
 )
 
-/*
 
-/**
- * Repository that fetch mars photos list from marsApi.
- */
-interface MarsPhotosRepository {
-    /** Fetches list of MarsPhoto from marsApi */
-    suspend fun getMarsPhotos(): List<MarsPhoto>
-}
 
-/**
- * Network Implementation of Repository that fetch mars photos list from marsApi.
- */
-class NetworkMarsPhotosRepository(
-    private val marsApiService: MarsApiService
-) : MarsPhotosRepository {
-    /** Fetches list of MarsPhoto from marsApi*/
-    override suspend fun getMarsPhotos(): List<MarsPhoto> = marsApiService.getPhotos()
-}
 
-*/
 
 

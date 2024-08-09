@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.marsphotos.ui.theme
+package sheridan.sullnich.assignment4.ui.theme
 
 import android.app.Activity
 import android.os.Build

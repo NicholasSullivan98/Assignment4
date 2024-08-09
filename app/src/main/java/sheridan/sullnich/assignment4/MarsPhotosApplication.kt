@@ -13,10 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.marsphotos
+package sheridan.sullnich.assignment4
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import sheridan.sullnich.assignment4.data.repository.MarsPhotoRepository
+import javax.inject.Inject
 
 @HiltAndroidApp
-class MarsPhotosApplication : Application()
+class MarsPhotosApplication() : Application(){
+
+    @Inject
+    lateinit var repository: MarsPhotoRepository
+
+    override fun onCreate() {
+        super.onCreate()
+
+        MainScope().launch {
+            repository.refreshMarsPhotos()
+        }
+    }
+}

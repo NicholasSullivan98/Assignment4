@@ -3,7 +3,7 @@ package sheridan.sullnich.assignment4.data.repository
 import kotlinx.coroutines.flow.Flow
 import sheridan.sullnich.assignment4.domain.MarsPhoto
 
-interface PhotoRepository {
+interface MarsPhotoRepository {
 
     fun getAllMarsPhotosFlow(): Flow<List<MarsPhoto>>
 

@@ -13,8 +13,10 @@ data class LocalMarsPhotos (
     @ColumnInfo(name = "r_title")
     val imgSrc: String,
 
+    /*
     @ColumnInfo(name = "r_description")
     val description: String,
+     */
 
     @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean = false

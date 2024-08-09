@@ -1,10 +1,10 @@
 package ca.tetervak.restaurantapp.domain
 
-import sheridan.sullnich.assignment4.data.repository.PhotoRepository
+import sheridan.sullnich.assignment4.data.repository.MarsPhotoRepository
 import javax.inject.Inject
 
 class ReloadUseCase @Inject constructor(
-    private val repository: PhotoRepository
+    private val repository: MarsPhotoRepository
 ) {
     suspend operator fun invoke() = repository.refreshMarsPhotos()
 }

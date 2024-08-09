@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -41,7 +42,7 @@ import sheridan.sullnich.assignment4.domain.MarsPhoto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListScreen(
+fun MarsPhotosScreen(
     viewModel: MarsPhotosViewModel,
     onItemClick: (id: Int) -> Unit,
     modifier: Modifier = Modifier
@@ -56,69 +57,10 @@ fun ListScreen(
         topBar = { MarsPhotosTopBar(viewModel::reload, viewModel::clear, scrollBehavior) }
     ) { innerPadding ->
         if (listUiState is MarsPhotosUiState.Success) {
-            ListBody(
-                marsPhotos = listUiState.marsPhotos,
-                onItemClick = onItemClick,
-                onFavoriteClick = { marsPhotos ->
-                    viewModel.toggleFavorite(marsPhotos.id, marsPhotos.isFavorite)
-                },
-                modifier = modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-            )
-        }
-    }
-}
-
-@Composable
-fun ListBody(
-    marsPhotos: List<MarsPhoto>,
-    onItemClick: (id: Int) -> Unit,
-    onFavoriteClick: (MarsPhoto) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            vertical = 8.dp, horizontal = 8.dp
-        ), modifier = modifier
-    ) {
-        items(marsPhoto) { marsPhoto ->
-            MarsPhotoItem(item = marsPhoto,
-                onFavoriteClick = { onFavoriteClick(marsPhoto) },
-                onItemClick = { onItemClick(marsPhoto.id) })
-        }
-    }
-}
-
-@Composable
-fun MarsPhotoItem(
-    item: MarsPhoto, onFavoriteClick: () -> Unit, onItemClick: () -> Unit
-) {
-    Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        modifier = Modifier
-            .padding(8.dp)
-            .clickable(onClick = onItemClick)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)
-        ) {
-            PhotosGridScreen(photos = MarsPhoto.)
-            /*
-            RestaurantIcon(
-                icon = Icons.Filled.Place, modifier = Modifier.weight(0.15f)
-            )
-            RestaurantDetails(
-                title = item.title, description = item.description, modifier = Modifier.weight(0.7f)
-            )
-            
-             */
-            SelectionIcon(
-                icon = if (item.isFavorite) {
-                    Icons.Filled.Favorite
-                } else {
-                    Icons.Filled.FavoriteBorder
-                }, onClick = onFavoriteClick, modifier = Modifier.weight(0.15f)
+            PhotosGridScreen(
+                photos = listUiState.marsPhoto,
+                contentPadding = innerPadding,
+                modifier = modifier.fillMaxWidth()
             )
         }
     }

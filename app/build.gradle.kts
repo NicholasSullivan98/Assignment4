@@ -4,7 +4,7 @@ plugins {
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
 
-    //alias(libs.plugins.ksp)
+    alias(libs.plugins.ksp)
 
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
@@ -67,7 +67,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    //implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
@@ -88,7 +89,7 @@ dependencies {
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-    //ksp(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

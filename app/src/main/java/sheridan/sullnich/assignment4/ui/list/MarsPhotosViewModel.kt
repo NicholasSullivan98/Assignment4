@@ -2,11 +2,18 @@ package sheridan.sullnich.assignment4.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ca.tetervak.restaurantapp.domain.ReloadUseCase
+import ca.tetervak.restaurantapp.domain.ToggleFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import sheridan.sullnich.assignment4.domain.ClearUseCase
+import sheridan.sullnich.assignment4.domain.GetMarsPhotoUseCase
 import javax.inject.Inject
 
 @HiltViewModel
