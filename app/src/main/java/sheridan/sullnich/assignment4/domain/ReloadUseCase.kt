@@ -1,4 +1,4 @@
-package ca.tetervak.restaurantapp.domain
+package sheridan.sullnich.assignment4.domain
 
 import sheridan.sullnich.assignment4.data.repository.MarsPhotoRepository
 import javax.inject.Inject

@@ -8,5 +8,4 @@ data class RemoteMarsPhoto(
     val id: Int,
     @SerialName(value = "img_src")
     val imgSrc: String,
-    //val description: String,
 )

@@ -2,8 +2,7 @@ package sheridan.sullnich.assignment4.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ca.tetervak.restaurantapp.domain.ReloadUseCase
-import ca.tetervak.restaurantapp.domain.ToggleFavoriteUseCase
+import sheridan.sullnich.assignment4.domain.ReloadUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MarsPhotosViewModel @Inject constructor(
     getMarsPhotoUseCase: GetMarsPhotoUseCase,
-    private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     private val reloadUseCase: ReloadUseCase,
     private val clearUseCase: ClearUseCase
 ) : ViewModel() {
@@ -33,10 +31,6 @@ class MarsPhotosViewModel @Inject constructor(
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         exception.printStackTrace()
-    }
-
-    fun toggleFavorite(id: Int, currentIsFavorite: Boolean) = viewModelScope.launch(errorHandler) {
-        toggleFavoriteUseCase(id, currentIsFavorite)
     }
 
     fun reload() = viewModelScope.launch(errorHandler) {

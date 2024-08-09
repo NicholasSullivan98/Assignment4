@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sheridan.sullnich.assignment4.data.local.IsFavorite
 import sheridan.sullnich.assignment4.data.local.LocalMarsPhotos
 import sheridan.sullnich.assignment4.data.local.MarsPhotoDao
 import sheridan.sullnich.assignment4.data.remote.MarsPhotoApi
@@ -60,15 +59,6 @@ class MarsPhotosRepositoryImpl(
         marsphotoDao.getMarsPhotoById(id)?.toMarsPhoto()
     }
 
-    override suspend fun toggleIsFavoriteById(id: Int) = withContext(dispatcher) {
-        marsphotoDao.toggleIsFavoriteById(id)
-    }
-
-    override suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean) =
-        withContext(dispatcher) {
-            marsphotoDao.setIsFavoriteById(id, isFavorite)
-        }
-
     override suspend fun refreshMarsPhotos() {
         externalScope.launch(dispatcher) {
 
@@ -76,12 +66,7 @@ class MarsPhotosRepositoryImpl(
                 marsphotoApi.getAllMarsPhotos().map { it.toLocalMarsPhoto() }
             }
 
-            val idsOfFavorites: List<Int> = marsphotoDao.getIdsOfFavoriteMarsPhotos()
-            val isFavoriteList: List<IsFavorite> =
-                idsOfFavorites.map { id -> IsFavorite(id = id, isFavorite = true) }
-
             marsphotoDao.refreshMarsPhotos(marsPhotos.await())
-            marsphotoDao.updateIsFavorite(isFavoriteList)
         }
     }
 
@@ -93,11 +78,11 @@ class MarsPhotosRepositoryImpl(
 }
 
 fun LocalMarsPhotos.toMarsPhoto(): MarsPhoto = MarsPhoto(
-    id = id, imgSrc = imgSrc, isFavorite = isFavorite
+    id = id, imgSrc = imgSrc
 )
 
 fun RemoteMarsPhoto.toLocalMarsPhoto(): LocalMarsPhotos = LocalMarsPhotos(
-    id = this.id, imgSrc = this.imgSrc, isFavorite = false
+    id = this.id, imgSrc = this.imgSrc
 )
 
 
